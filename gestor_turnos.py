@@ -15,13 +15,6 @@ class GestorTurnos():
         if os.path.exists (self.archivo_csv):
             self.turnos = self.db.read ()
 
-    def listar_turnos(self):
-        if not self.turnos:
-            print("No hay turnos registrados.")
-        else:
-            for t in self.turnos:
-                print(t)
-
     def modificar_turno(self, dni, nueva_fecha, nueva_hora):
         for t in self.turnos:
             if t.cliente == str(dni):
