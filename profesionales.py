@@ -13,8 +13,8 @@ class Profesionales (Registro):
         # Pedir DNI y verificar si ya está registrado con la lista.
         dni = pedir_dni("Ingrese el DNI del profesional (entre 7 y 8 números): ")
         for p in lista_profesionales:
-            if p.dni == dni:
-                print("Este profesional está registrado")
+            if p.dni == str(dni):
+                print(f"Este profesional DNI: {dni} está registrado")
                 return None
         # Solicitar datos del profesional.
         nombre = input("Ingrese el nombre del profesional: ")
