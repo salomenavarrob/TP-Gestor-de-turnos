@@ -1,30 +1,25 @@
 from registro import Registro
+from utilidad import pedir_dni
 
-class Cliente (Registro):
-
-    clientes = []
-
+class Cliente(Registro):
     def __init__(self, **kwargs):
-     super().__init__(**kwargs)
+        super().__init__(**kwargs)
 
     def __str__(self):
-        return f"{self.nombre} {self.apellido} {self.dni}"
-  
-    def registrar_cliente(self):
-        nombre = input ("nombre:")
-        apellido = input ("apellido: ")
-        dni = input ("dni:")
-        cliente = Cliente (nombre, apellido, dni)
-        validacion = cliente.validar (cliente)
-        if validacion == False:
-            self.clientes.append (cliente)
-            print("Cliente registrado correctamente")
-            return cliente
-        else:
-            print ("Este cliente tiene un turno registrado")
+        return f"DNI: {self.dni} - Nombre: {self.nombre} - Apellido: {self.apellido} "
 
-    def validar (self, cliente):
-        if cliente.dni in self.clientes:
-            return True
-        else:
-            return False 
+    def registrar_cliente(lista_clientes):
+        dni = pedir_dni("Ingrese el DNI del cliente (entre 7 y 8 números): ")
+        # Verificar si el DNI ya está registrado en la lista de clientes.
+        for c in lista_clientes:
+            if c.dni == dni:
+                print(f"Este cliente DNI: {dni} está registrado")
+                return None
+        # Solicitar datos del cliente.   
+        nombre = input("Ingrese el nombre del cliente: ")
+        apellido = input("Ingrese el apellido del cliente: ")
+        # Crear el objeto Cliente y agregarlo a la lista.
+        cliente = Cliente(nombre=nombre, apellido=apellido, dni=str(dni))
+        lista_clientes.append(cliente)
+        print("Cliente registrado: " + str(cliente))
+        return cliente

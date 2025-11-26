@@ -4,9 +4,17 @@ from profesionales import Profesionales
 from turno import Turno
 
 def mostrar_menu():
+        #Crear instancia de la clase GestorTurnos y lleno la lista de turnos con el csv.
         gestor = GestorTurnos()
-        listaprofesionales = []
-        listacliente = []
+        
+        #Crear listas de profesionales y clientes de ejemplo.
+        listaprofesionales = [Profesionales (nombre= "Alma", servicio= "tintura", dni = "22222222"), 
+                              Profesionales (nombre= "José", servicio= "corte", dni= "3333333")]
+        
+        listacliente = [Cliente (nombre="Leandro", apellido="Perez", dni="40936125"), 
+                    Cliente (nombre="Luciano", apellido="Mosquera ", dni="39985164"), 
+                    Cliente (nombre="Mia", apellido="Garcia", dni="11111111")]    
+        
         print("**************")
         print('SISTEMA DE GESTIÓN DE TURNOS')
         print("**************")
@@ -16,7 +24,7 @@ def mostrar_menu():
 
         menu = """
             [1] Registrar nuevo Cliente
-            [2] Registrar nuevo Empleado
+            [2] Registrar nuevo Profesional
             [3] Solicitar turno
             [4] Listar turnos existentes
             [5] Modificar turno
@@ -29,52 +37,27 @@ def mostrar_menu():
         while True:
             opcion = input("Seleccione la opción deseada (1 - 8): ")
             if opcion == "1":
-                nombre = input ("Ingrese el nombre del cliente:")
-                apellido = input ("Ingrese el apellido del cliente: ")
-                dni = input ("Ingrese el dni del cliente:")
-                cliente = Cliente (nombre=nombre, apellido=apellido, dni=dni)
-            
-                # if cliente.validar ():
-                listacliente.append (cliente)
-                print("Cliente registrado correctamente")
-                # else:
-                   # print ("Este cliente tiene un turno registrado")
+                #LLamada al metodo registrar_cliente de la clase Cliente para acceder a los metodos de la clase y crear objetos.
+                Cliente.registrar_cliente(listacliente)
 
             elif opcion == "2":
-                nombre = input ("Ingrese el nombre del empleado:" )
-                servicio = input ("Ingrese el servicio:" )
-                profesionales = Profesionales (nombre= nombre, servicio= servicio)
-                listaprofesionales.append (profesionales)
-                print ("Profesional registrado")
+                Profesionales.registrar_profesional(listaprofesionales)
 
             elif opcion == "3":
-                if not cliente or not profesionales:
-                    print ("Debe haber al menos un cliente y un empleado registrado")
-                    continue 
-                dni = input ("dni: ")
-                profesional = input ("Profesional asignado: ")
-                fecha = input ("fecha: ")
-                hora = input ("hora: ")
-                turno = Turno (cliente = dni, profesional= profesional, fecha= fecha, hora= hora)
-                gestor.registrar_turno (turno)
+                Turno.solicitar_turno(gestor, listacliente, listaprofesionales)
 
             elif opcion == "4":
-                gestor.listar_turnos()
+                # Envio la lista ya previamente cargada del csv.
+                Turno.listar_turnos(gestor.turnos)
 
             elif opcion == "5":
-                dni = input ("Ingrese el dni del cliente:")
-                nueva_fecha = input ("Nueva fecha: ")
-                nueva_hora = input ("Nueva hora: ")
-                gestor.modificar_turno(dni, nueva_fecha, nueva_hora)
+                Turno.modificar_turno(gestor)
 
             elif opcion == "6":
-                dni = input ("dni:")
-                fecha = input ("fecha")
-                hora = input ("horario: ")
-                gestor.cancelar_turno(dni, fecha, hora)
+                Turno.cancelar_turno(gestor)
 
             elif opcion == "7":
-                
+                #LLamada al metodo guardar_datos de la clase Gestor para acceder como una instancia a los metodos de la clase.
                 gestor.guardar_datos()
 
             elif opcion == "8":
