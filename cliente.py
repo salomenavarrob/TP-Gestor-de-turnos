@@ -12,7 +12,7 @@ class Cliente(Registro):
         dni = pedir_dni("Ingrese el DNI del cliente (entre 7 y 8 números): ")
         # Verificar si el DNI ya está registrado en la lista de clientes.
         for c in lista_clientes:
-            if c.dni == dni:
+            if c.dni == str(dni):
                 print(f"Este cliente DNI: {dni} está registrado")
                 return None
         # Solicitar datos del cliente.   
